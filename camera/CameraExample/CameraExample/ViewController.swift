@@ -17,7 +17,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     @IBOutlet weak var photoCaptureView: UIImageView!
     
     // Flag
-    var shutterBtnOn = false
+    var isShutterBtnOn = false
     
     // Camera
     var session: AVCaptureSession?
@@ -41,29 +41,25 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         self.session?.sessionPreset = AVCaptureSessionPreset1920x1080
         
         let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-        do{
-            let input = try! AVCaptureDeviceInput(device: device)
-            if(self.session!.canAddInput(input)){
-                self.session?.addInput(input)
+        let input = try! AVCaptureDeviceInput(device: device)
+        if(self.session!.canAddInput(input)){
+            self.session?.addInput(input)
+            
+            if(self.session!.canAddOutput(self.imageOutput)){
+                self.session?.addOutput(self.imageOutput)
+                self.session?.startRunning()
                 
-                if(self.session!.canAddOutput(self.imageOutput)){
-                    self.session?.addOutput(self.imageOutput)
-                    self.session?.startRunning()
-                    
-                    self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.session)
-                    self.videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspect
-                    self.videoPreviewLayer?.connection.videoOrientation = AVCaptureVideoOrientation.portrait
-                    
-                    self.videoPreviewView.layer.addSublayer(self.videoPreviewLayer!)
-                    
-                    // size setting
-                    self.videoPreviewLayer?.position = CGPoint(x: self.videoPreviewView.frame.width,
-                                                               y: self.videoPreviewView.frame.height)
-                    self.videoPreviewView.bounds = self.videoPreviewView.frame
-                }
+                self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.session)
+                self.videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspect
+                self.videoPreviewLayer?.connection.videoOrientation = AVCaptureVideoOrientation.portrait
+                
+                self.videoPreviewView.layer.addSublayer(self.videoPreviewLayer!)
+                
+                // size setting
+                self.videoPreviewLayer?.position = CGPoint(x: self.videoPreviewView.frame.width,
+                                                           y: self.videoPreviewView.frame.height)
+                self.videoPreviewView.bounds = self.videoPreviewView.frame
             }
-        } catch {
-            print(error)
         }
 
     }
@@ -78,15 +74,23 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     //------------------
     @IBAction func onTouchShutterBtn(_ sender: Any) {
         // self.playButton.setImage(UIImage(named: "play_on"), forState: UIControlState.Normal)
-        if self.shutterBtnOn {
-            self.shutterBtn.setImage(UIImage(named: "camera_btn"), for: UIControlState.normal)
-            self.shutterBtnOn = false
+        if self.isShutterBtnOn {
+            self.shutterBtnOff()
         } else {
-            self.shutterBtn.setImage(UIImage(named: "camera_btn_on"), for: UIControlState.normal)
-            self.shutterBtnOn = true
+            self.shutterBtnOn()
             
-            //self.capturePhoto()
+            self.capturePhoto()
         }
+    }
+    
+    private func shutterBtnOn(){
+        self.shutterBtn.setImage(UIImage(named: "camera_btn_on"), for: UIControlState.normal)
+        self.isShutterBtnOn = true
+    }
+    
+    private func shutterBtnOff(){
+        self.shutterBtn.setImage(UIImage(named: "camera_btn"), for: UIControlState.normal)
+        self.isShutterBtnOn = false
     }
     
     //------------------
@@ -116,6 +120,8 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 //            self.image.bounds = self.photoCaptureView.frame
             
             self.photoCaptureView.image = image
+            
+            self.shutterBtnOff()
         }
     }
     
