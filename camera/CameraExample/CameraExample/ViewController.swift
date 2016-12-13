@@ -41,27 +41,30 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         self.session?.sessionPreset = AVCaptureSessionPreset1920x1080
         
         let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-        dof{
-            
+        do{
+            let input = try! AVCaptureDeviceInput(device: device)
+            if(self.session!.canAddInput(input)){
+                self.session?.addInput(input)
+                
+                if(self.session!.canAddOutput(self.imageOutput)){
+                    self.session?.addOutput(self.imageOutput)
+                    self.session?.startRunning()
+                    
+                    self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.session)
+                    self.videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspect
+                    self.videoPreviewLayer?.connection.videoOrientation = AVCaptureVideoOrientation.portrait
+                    
+                    self.videoPreviewView.layer.addSublayer(self.videoPreviewLayer!)
+                    
+                    // size setting
+                    self.videoPreviewLayer?.position = CGPoint(x: self.videoPreviewView.frame.width,
+                                                               y: self.videoPreviewView.frame.height)
+                    self.videoPreviewView.bounds = self.videoPreviewView.frame
+                }
+            }
+        } catch {
+            print(error)
         }
-        
-        // set preview layer
-        self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.session)
-        guard let _videoPreviewLayer = videoPreviewLayer else {
-            return
-        }
-        _videoPreviewLayer.masksToBounds = true
-        _videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        self.videoPreviewView.layer.addSublayer(_videoPreviewLayer)
-        
-        // set input
-        
-        let input = try! AVCaptureDeviceInput(device: device)
-        self.session?.addInput(input)
-        
-        // set output
-        
-        self.session?.addOutput(self.imageOutput)
 
     }
 
@@ -82,7 +85,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             self.shutterBtn.setImage(UIImage(named: "camera_btn_on"), for: UIControlState.normal)
             self.shutterBtnOn = true
             
-            self.capturePhoto()
+            //self.capturePhoto()
         }
     }
     
@@ -107,6 +110,11 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             // JPEG形式で画像データを取得
             let photoData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer)
             let image = UIImage(data: photoData!)
+            
+//            image.position = CGPoint(x: self.photoCaptureView.frame.width,
+//                                     y: self.photoCaptureView.frame.height)
+//            self.image.bounds = self.photoCaptureView.frame
+            
             self.photoCaptureView.image = image
         }
     }
