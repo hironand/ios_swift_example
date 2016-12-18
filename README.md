@@ -9,4 +9,3 @@
 ### CameraApp
 [[Swift]AVFoundationでカメラを使う]
 (http://qiita.com/ShinokiRyosei/items/f70c83a3ab4d22d00ebc "")
-

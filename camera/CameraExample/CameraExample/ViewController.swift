@@ -38,7 +38,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         //----------
         self.session = AVCaptureSession()
         self.imageOutput = AVCapturePhotoOutput()
-        self.session?.sessionPreset = AVCaptureSessionPreset1920x1080
+        self.session?.sessionPreset = AVCaptureSessionPresetMedium
         
         let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         let input = try! AVCaptureDeviceInput(device: device)
@@ -50,15 +50,16 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 self.session?.startRunning()
                 
                 self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.session)
-                self.videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspect
+                //self.videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspect
                 self.videoPreviewLayer?.connection.videoOrientation = AVCaptureVideoOrientation.portrait
                 
-                self.videoPreviewView.layer.addSublayer(self.videoPreviewLayer!)
-                
                 // size setting
-                self.videoPreviewLayer?.position = CGPoint(x: self.videoPreviewView.frame.width,
-                                                           y: self.videoPreviewView.frame.height)
-                self.videoPreviewView.bounds = self.videoPreviewView.frame
+                self.videoPreviewLayer?.position = CGPoint(x: self.videoPreviewView.frame.width / 2,
+                                                           y: self.videoPreviewView.frame.height / 2)
+                self.videoPreviewLayer!.bounds = self.videoPreviewView.frame
+                //self.videoPreviewLayer!.preferredFrameSize()
+                
+                self.videoPreviewView.layer.addSublayer(self.videoPreviewLayer!)
             }
         }
 
@@ -115,12 +116,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             let photoData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer)
             let image = UIImage(data: photoData!)
             
-//            image.position = CGPoint(x: self.photoCaptureView.frame.width,
-//                                     y: self.photoCaptureView.frame.height)
-//            self.image.bounds = self.photoCaptureView.frame
-            
             self.photoCaptureView.image = image
-            
             self.shutterBtnOff()
         }
     }
