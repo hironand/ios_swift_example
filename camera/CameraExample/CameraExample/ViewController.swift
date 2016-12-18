@@ -116,8 +116,14 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             let photoData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer)
             let image = UIImage(data: photoData!)
             
-            self.photoCaptureView.image = image
-            self.shutterBtnOff()
+            DispatchQueue.main.async {
+                self.photoCaptureView.alpha = 1
+                self.photoCaptureView.image = image
+                //sleep(3)
+                //self.photoCaptureView.alpha = 0
+                self.shutterBtnOff()
+            }
+            
         }
     }
     
