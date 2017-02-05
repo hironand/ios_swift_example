@@ -21,7 +21,6 @@
  */
 
 import UIKit
-import Metal
 import MetalKit
 import QuartzCore
 import simd
@@ -38,18 +37,23 @@ class MetalViewController: UIViewController {
     var commandQueue: MTLCommandQueue! = nil
     var projectionMatrix: float4x4!
     
-    @IBOutlet var mtkView: MTKView!
-    
     weak var metalViewControllerDelegate:MetalViewControllerDelegate?
+    
+    @IBOutlet weak var mtkView: MTKView! {
+        didSet {
+            mtkView.delegate = self
+            mtkView.preferredFramesPerSecond = 60
+            mtkView.clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         projectionMatrix = float4x4.makePerspectiveViewAngle(float4x4.degrees(toRad: 85.0), aspectRatio: Float(self.view.bounds.size.width / self.view.bounds.size.height), nearZ: 0.01, farZ: 100.0)
         
-        mtkView.device = device
-        
         device = MTLCreateSystemDefaultDevice()
+        mtkView.device = device
         
         commandQueue = device.makeCommandQueue()
         
@@ -71,10 +75,6 @@ class MetalViewController: UIViewController {
         pipelineStateDescriptor.colorAttachments[0].destinationAlphaBlendFactor = MTLBlendFactor.oneMinusSourceAlpha;
         
         pipelineState = try! device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
-        
-        mtkView.delegate = self
-        mtkView.preferredFramesPerSecond = 60
-        mtkView.clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     }
     
     func render(_ drawable: CAMetalDrawable?) {

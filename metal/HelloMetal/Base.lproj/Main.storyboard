@@ -22,7 +22,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
-                        <outlet property="mtkView" destination="8bC-Xf-vdC" id="FF4-Pa-zCd"/>
+                        <outlet property="mtkView" destination="8bC-Xf-vdC" id="Qn6-2f-idv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
