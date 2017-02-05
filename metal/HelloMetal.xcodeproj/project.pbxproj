@@ -11,12 +11,12 @@
 		0C49914D1A7278730028ECBB /* MySceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49914B1A7278730028ECBB /* MySceneViewController.swift */; };
 		0C9DA0AD1AD7CD6200126EC2 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9DA0AC1AD7CD6200126EC2 /* BufferProvider.swift */; };
 		0C9DA0B31AD7D2CC00126EC2 /* cube.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C9DA0B21AD7D2CC00126EC2 /* cube.png */; };
+		1925FB511E46D76700D442D8 /* float4x4+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1925FB501E46D76700D442D8 /* float4x4+Extensions.swift */; };
 		35023C4619DDB96F006F3266 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35023C4519DDB96F006F3266 /* AppDelegate.swift */; };
 		35023C4B19DDB970006F3266 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35023C4919DDB970006F3266 /* Main.storyboard */; };
 		35023C4D19DDB970006F3266 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35023C4C19DDB970006F3266 /* Images.xcassets */; };
 		35023C5019DDB970006F3266 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35023C4E19DDB970006F3266 /* LaunchScreen.xib */; };
 		35023C6619DDBB29006F3266 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 35023C6519DDBB29006F3266 /* Shaders.metal */; };
-		43167D7A19F9371D00929F8C /* Matrix4.m in Sources */ = {isa = PBXBuildFile; fileRef = 43167D7919F9371D00929F8C /* Matrix4.m */; };
 		43167D7C19F93AA100929F8C /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43167D7B19F93AA100929F8C /* Vertex.swift */; };
 		43167D7E19F93B2B00929F8C /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43167D7D19F93B2B00929F8C /* Node.swift */; };
 		4359566D19FA527D00881C62 /* Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4359566C19FA527D00881C62 /* Cube.swift */; };
@@ -29,6 +29,7 @@
 		0C49914B1A7278730028ECBB /* MySceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySceneViewController.swift; sourceTree = "<group>"; };
 		0C9DA0AC1AD7CD6200126EC2 /* BufferProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
 		0C9DA0B21AD7D2CC00126EC2 /* cube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cube.png; sourceTree = "<group>"; };
+		1925FB501E46D76700D442D8 /* float4x4+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "float4x4+Extensions.swift"; sourceTree = "<group>"; };
 		35023C4019DDB96F006F3266 /* HelloMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35023C4419DDB96F006F3266 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35023C4519DDB96F006F3266 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,9 +37,6 @@
 		35023C4C19DDB970006F3266 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		35023C4F19DDB970006F3266 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		35023C6519DDBB29006F3266 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		43167D7719F9371D00929F8C /* HelloMetal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloMetal-Bridging-Header.h"; sourceTree = "<group>"; };
-		43167D7819F9371D00929F8C /* Matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix4.h; sourceTree = "<group>"; };
-		43167D7919F9371D00929F8C /* Matrix4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix4.m; sourceTree = "<group>"; };
 		43167D7B19F93AA100929F8C /* Vertex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
 		43167D7D19F93B2B00929F8C /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		4359566C19FA527D00881C62 /* Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cube.swift; sourceTree = "<group>"; };
@@ -76,9 +74,8 @@
 		35023C4219DDB96F006F3266 /* HelloMetal */ = {
 			isa = PBXGroup;
 			children = (
+				1925FB501E46D76700D442D8 /* float4x4+Extensions.swift */,
 				436D0D081B77E29400483748 /* MetalTexture.swift */,
-				43167D7819F9371D00929F8C /* Matrix4.h */,
-				43167D7919F9371D00929F8C /* Matrix4.m */,
 				43167D7B19F93AA100929F8C /* Vertex.swift */,
 				43D3FAEA1CB123C800FA7E2F /* Light.swift */,
 				43167D7D19F93B2B00929F8C /* Node.swift */,
@@ -93,7 +90,6 @@
 				35023C4E19DDB970006F3266 /* LaunchScreen.xib */,
 				35023C4319DDB96F006F3266 /* Supporting Files */,
 				35023C6519DDBB29006F3266 /* Shaders.metal */,
-				43167D7719F9371D00929F8C /* HelloMetal-Bridging-Header.h */,
 			);
 			path = HelloMetal;
 			sourceTree = "<group>";
@@ -138,6 +134,7 @@
 				ORGANIZATIONNAME = "Razeware LLC";
 				TargetAttributes = {
 					35023C3F19DDB96F006F3266 = {
+						DevelopmentTeam = 7V5LK3MGDE;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -180,9 +177,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				35023C6619DDBB29006F3266 /* Shaders.metal in Sources */,
-				43167D7A19F9371D00929F8C /* Matrix4.m in Sources */,
 				0C9DA0AD1AD7CD6200126EC2 /* BufferProvider.swift in Sources */,
 				43D3FAEB1CB123C800FA7E2F /* Light.swift in Sources */,
+				1925FB511E46D76700D442D8 /* float4x4+Extensions.swift in Sources */,
 				43167D7E19F93B2B00929F8C /* Node.swift in Sources */,
 				4359566D19FA527D00881C62 /* Cube.swift in Sources */,
 				436D0D091B77E29400483748 /* MetalTexture.swift in Sources */,
@@ -302,13 +299,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7V5LK3MGDE;
 				INFOPLIST_FILE = HelloMetal/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.razeware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "HelloMetal/HelloMetal-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -319,13 +315,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7V5LK3MGDE;
 				INFOPLIST_FILE = HelloMetal/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.razeware.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "HelloMetal/HelloMetal-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};

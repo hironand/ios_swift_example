@@ -23,6 +23,7 @@
 import UIKit
 import Metal
 import QuartzCore
+import simd
 
 protocol MetalViewControllerDelegate : class {
   func updateLogic(_ timeSinceLastUpdate:CFTimeInterval)
@@ -36,7 +37,7 @@ class MetalViewController: UIViewController {
   var pipelineState: MTLRenderPipelineState! = nil
   var commandQueue: MTLCommandQueue! = nil
   var timer: CADisplayLink! = nil
-  var projectionMatrix: Matrix4!
+  var projectionMatrix: float4x4!
   var lastFrameTimestamp: CFTimeInterval = 0.0
   
   weak var metalViewControllerDelegate:MetalViewControllerDelegate?
@@ -44,7 +45,7 @@ class MetalViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    projectionMatrix = Matrix4.makePerspectiveViewAngle(Matrix4.degrees(toRad: 85.0), aspectRatio: Float(self.view.bounds.size.width / self.view.bounds.size.height), nearZ: 0.01, farZ: 100.0)
+    projectionMatrix = float4x4.makePerspectiveViewAngle(float4x4.degrees(toRad: 85.0), aspectRatio: Float(self.view.bounds.size.width / self.view.bounds.size.height), nearZ: 0.01, farZ: 100.0)
     
     
     device = MTLCreateSystemDefaultDevice()
@@ -93,7 +94,7 @@ class MetalViewController: UIViewController {
       metalLayer.frame = CGRect(x: 0, y: 0, width: layerSize.width, height: layerSize.height)
       metalLayer.drawableSize = CGSize(width: layerSize.width * scale, height: layerSize.height * scale)
     }
-    projectionMatrix = Matrix4.makePerspectiveViewAngle(Matrix4.degrees(toRad: 85.0), aspectRatio: Float(self.view.bounds.size.width / self.view.bounds.size.height), nearZ: 0.01, farZ: 100.0)
+    projectionMatrix = float4x4.makePerspectiveViewAngle(float4x4.degrees(toRad: 85.0), aspectRatio: Float(self.view.bounds.size.width / self.view.bounds.size.height), nearZ: 0.01, farZ: 100.0)
   }
 
   func render() {

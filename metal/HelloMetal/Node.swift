@@ -23,6 +23,7 @@
 import Foundation
 import Metal
 import QuartzCore
+import simd
 
 class Node {
   
@@ -66,7 +67,7 @@ class Node {
     self.bufferProvider = BufferProvider(device: device, inflightBuffersCount: 3)
   }
   
-  func render(_ commandQueue: MTLCommandQueue, pipelineState: MTLRenderPipelineState, drawable: CAMetalDrawable, parentModelViewMatrix: Matrix4, projectionMatrix: Matrix4, clearColor: MTLClearColor?) {
+  func render(_ commandQueue: MTLCommandQueue, pipelineState: MTLRenderPipelineState, drawable: CAMetalDrawable, parentModelViewMatrix: float4x4, projectionMatrix: float4x4, clearColor: MTLClearColor?) {
     
     let _ = bufferProvider.avaliableResourcesSemaphore.wait(timeout: DispatchTime.distantFuture)
     
@@ -91,7 +92,7 @@ class Node {
       renderEncoder.setFragmentSamplerState(samplerState, at: 0)
     }
     
-    let nodeModelMatrix = self.modelMatrix()
+    var nodeModelMatrix = self.modelMatrix()
     nodeModelMatrix.multiplyLeft(parentModelViewMatrix)
     
     let uniformBuffer = bufferProvider.nextUniformsBuffer(projectionMatrix, modelViewMatrix: nodeModelMatrix, light: light)
@@ -105,12 +106,12 @@ class Node {
     commandBuffer.commit()
   }
   
-  func modelMatrix() -> Matrix4 {
-    let matrix = Matrix4()
-    matrix?.translate(positionX, y: positionY, z: positionZ)
-    matrix?.rotateAroundX(rotationX, y: rotationY, z: rotationZ)
-    matrix?.scale(scale, y: scale, z: scale)
-    return matrix!
+  func modelMatrix() -> float4x4 {
+    var matrix = float4x4()
+    matrix.translate(positionX, y: positionY, z: positionZ)
+    matrix.rotateAroundX(rotationX, y: rotationY, z: rotationZ)
+    matrix.scale(scale, y: scale, z: scale)
+    return matrix
   }
   
   func updateWithDelta(_ delta: CFTimeInterval) {
