@@ -18,10 +18,10 @@ class Speech {
             let audioSession = AVAudioSession.sharedInstance()
             try! audioSession.setCategory(AVAudioSessionCategoryAmbient)
             
-            let rapper = AVSpeechSynthesizer()
+            let speaker = AVSpeechSynthesizer()
             let uttr = AVSpeechUtterance(string: word)
             uttr.voice = AVSpeechSynthesisVoice(language: "ja-JP")
-            rapper.speak(uttr)
+            speaker.speak(uttr)
             
             // これをやらないと音が出ない
             // AVSessionのカテゴリを変更
